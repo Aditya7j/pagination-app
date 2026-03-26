@@ -1,0 +1,119 @@
+.product-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+
+    .navbar-left {
+        display: flex;
+        align-items: center;
+
+        .logo {
+            margin-right: 40px;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+
+            li,
+            .nav-li {
+                cursor: pointer;
+                font-size: 0.95rem;
+                color: #333;
+                transition: color 0.2s;
+                text-decoration: none;
+
+                &:hover {
+                    color: #ff4d4f;
+                }
+            }
+        }
+    }
+
+    .navbar-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            overflow: hidden;
+
+            input {
+                padding: 6px 12px;
+                border: none;
+                outline: none;
+                width: 180px;
+                font-size: 0.9rem;
+            }
+
+            button {
+                background-color: #ff4d4f;
+                border: none;
+                padding: 6px 10px;
+                color: #fff;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+
+            .icon {
+                font-size: 1.2rem;
+                color: #333;
+                cursor: pointer;
+                transition: color 0.2s;
+
+                &:hover {
+                    color: #ff4d4f;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .navbar-left {
+            width: 100%;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            .nav-links {
+                gap: 15px;
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+        }
+
+        .navbar-right {
+            width: 100%;
+            justify-content: space-between;
+
+            .search-bar {
+                width: 100%;
+
+                input {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

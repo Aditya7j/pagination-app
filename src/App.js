@@ -1,10 +1,17 @@
 import { Products } from "./components/Product";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ProductDetails } from "./components/ProductDetails";
+import { Footer } from "./components/Footer";
 
 function App() {
   return (
-    <div className="App">
-      <Products />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Products />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 

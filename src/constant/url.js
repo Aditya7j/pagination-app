@@ -1,0 +1,1 @@
+export const img_url = "https://img.freepik.com/premium-vector/natural-products-logo_1222-726.jpg";

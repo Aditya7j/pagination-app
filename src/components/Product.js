@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Shimmer } from "./Shimmer";
 import "../scss/product.scss";
+import { useNavigate } from "react-router-dom";
+import { img_url } from "../constant/url";
 
 export const Products = () => {
     const [product, setProducts] = useState([]);
@@ -10,6 +12,7 @@ export const Products = () => {
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("");
     const [categoryFilter, setCategoryFilter] = useState("");
+    const navigate = useNavigate();
 
     // Filter products 
     let filteredProducts = product.filter((item) => {
@@ -77,7 +80,7 @@ export const Products = () => {
             const json = await data.json();
             setProducts(json.products);
         } catch (err) {
-            setError("Failed to fetch products.");
+            setError("Something Went Wrong Failed to fetch products.");
             console.error(err);
         }
     }
@@ -89,7 +92,7 @@ export const Products = () => {
         <>
             <div className="navbar-wrapper">
                 <div className="logo-wrapper">
-                    <img src="https://img.freepik.com/premium-vector/natural-products-logo_1222-726.jpg" alt="err" />
+                    <img src={img_url} alt="err" />
                 </div>
                 <div className="search-container">
                     <input type="text" placeholder="Search Product" className="search-input"
@@ -140,7 +143,7 @@ export const Products = () => {
             <>
                 <div className="product-grid">
                     {currentProducts.map((item, i) => (
-                        <div className="product-card" key={i}>
+                        <div className="product-card" key={i} onClick={() => navigate(`/product/${item.id}`)}>
                             <div className="product-image">
                                 <img src={item.thumbnail} alt={item.title} />
                             </div>
