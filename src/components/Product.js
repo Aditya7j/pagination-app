@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Shimmer } from "./Shimmer";
 import "../scss/product.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { img_url } from "../constant/url";
+import { img_url, product_url } from "../constant/url";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 
 export const Products = () => {
@@ -77,7 +77,7 @@ export const Products = () => {
     useEffect(() => {
         async function getProducts() {
             try {
-                const data = await fetch("https://dummyjson.com/products?limit=200");
+                const data = await fetch(product_url);
                 const json = await data.json();
                 setProducts(json.products);
                 window.scrollTo({ top: 0, behavior: "smooth" });

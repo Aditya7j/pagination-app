@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import "../scss/productDetails.scss";
 import ProductNavbar from "./ProductNavbar";
 import { Audio } from "react-loader-spinner";
+import { product_deatils_url } from "../constant/url";
 
 export const ProductDetails = () => {
     const { id } = useParams();
@@ -14,7 +15,7 @@ export const ProductDetails = () => {
     useEffect(() => {
         async function fetchProduct() {
             try {
-                const res = await fetch(`https://dummyjson.com/products/${id}`);
+                const res = await fetch(`${product_deatils_url}${id}`);
                 const json = await res.json();
                 setProduct(json);
                 // setMainImage(json.thumbnail || json.images[0]);
