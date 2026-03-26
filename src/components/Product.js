@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { img_url, product_url } from "../constant/url";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 
-export const Products = () => {
+const Products = () => {
     const [product, setProducts] = useState([]);
     const [error, setError] = useState("");
     const [currentPage, setcurrentPage] = useState(1);
@@ -190,3 +190,5 @@ export const Products = () => {
         </>
     );
 };
+
+export default Products;

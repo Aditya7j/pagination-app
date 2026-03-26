@@ -5,7 +5,7 @@ import ProductNavbar from "./ProductNavbar";
 import { Audio } from "react-loader-spinner";
 import { product_deatils_url } from "../constant/url";
 
-export const ProductDetails = () => {
+const ProductDetails = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [mainImage, setMainImage] = useState("");
@@ -115,3 +115,5 @@ export const ProductDetails = () => {
         </>
     );
 };
+
+export default ProductDetails;

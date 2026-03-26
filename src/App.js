@@ -1,19 +1,25 @@
-import { Products } from "./components/Product";
+// import { Products } from "./components/Product";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ProductDetails } from "./components/ProductDetails";
 import { Footer } from "./components/Footer";
 import ErrorPage from "./components/ErrorPage";
 import { Homepage } from "./components/HomePage";
+import { lazy, Suspense } from "react";
+import { Shimmer } from "./components/Shimmer";
+
+const Products = lazy(() => import("./components/Product"));
+const ProductDetails = lazy(() => import("./components/ProductDetails"));
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/product" element={<Products />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+      <Suspense fallback={<Shimmer />}>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/product" element={<Products />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </Suspense>
       <Footer />
     </BrowserRouter>
   );
