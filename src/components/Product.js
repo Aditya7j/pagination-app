@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./product.scss";
+import { Shimmer } from "./Shimmer";
 
 export const Products = () => {
     const [product, setProducts] = useState([]);
@@ -7,9 +8,11 @@ export const Products = () => {
     const [currentPage, setcurrentPage] = useState(1);
     const itemPerPage = 20;
     const [search, setSearch] = useState("");
+    const [filter, setFilter] = useState("");
+    const [categoryFilter, setCategoryFilter] = useState("");
 
     // Filter products 
-    const filteredProducts = product.filter((item) => {
+    let filteredProducts = product.filter((item) => {
         const value = search.toLowerCase();
         return (
             item.title.toLowerCase().includes(value) ||
@@ -17,6 +20,21 @@ export const Products = () => {
             item.category.toLowerCase().includes(value)
         )
     });
+
+    // filter-products
+    if (filter === "price-high") {
+        filteredProducts = [...filteredProducts].sort((a, b) => b.price - a.price);
+    }
+    if (filter === "price-low") {
+        filteredProducts = [...filteredProducts].sort((a, b) => a.price - b.price);
+    }
+
+    if (categoryFilter) {
+        filteredProducts = filteredProducts.filter(
+            (item) => item.category.includes(categoryFilter)
+        );
+    }
+
 
     //compute paginated data
     const totalPage = Math.ceil(filteredProducts.length / itemPerPage);
@@ -46,9 +64,12 @@ export const Products = () => {
     }
 
     useEffect(() => {
-        getProducts();
         setcurrentPage(1)
-    }, [search]);
+    }, [search, filter, categoryFilter]);
+
+    useEffect(() => {
+        getProducts();
+    }, []);
 
     async function getProducts() {
         try {
@@ -62,6 +83,7 @@ export const Products = () => {
     }
 
     if (error) return <p className="error-message">{error}</p>;
+    if (!product.length) return <Shimmer count={12} />;
 
     return (
         <>
@@ -77,34 +99,67 @@ export const Products = () => {
                 </div>
                 <div className="filter-container">
                     <label htmlFor="filter" className="filter-label">Filter:</label>
-                    <select id="filter" className="filter-select">
+                    <select id="filter" className="filter-select"
+                        value={filter}
+                        onChange={(e) => setFilter(e.target.value)}
+                    >
                         <option value="">Select</option>
                         <option value="price-high">Price: High to Low</option>
                         <option value="price-low">Price: Low to High</option>
-                        <option value="category">By Category</option>
+                    </select>
+                </div>
+
+                <div className="filter-container">
+                    <label htmlFor="filter" className="filter-label">Category:</label>
+                    <select
+                        id="filter"
+                        className="filter-select"
+                        value={categoryFilter}
+                        onChange={(e) => setCategoryFilter(e.target.value)}
+                    >
+                        <option value="">Select</option>
+                        <option value="beauty">BEAUTY</option>
+                        <option value="fragrances">FRAGRANCES</option>
+                        <option value="furniture">FURNITURE</option>
+                        <option value="groceries">GROCERIES</option>
+                        <option value="kitchen-accessories">KITCHEN</option>
+                        <option value="laptops">LAPTOPS</option>
+                        <option value="mens-watches">MEN WATCHES</option>
+                        <option value="mobile-accessories">MOBILE</option>
+                        <option value="skin-care">SKIN CARE</option>
+                        <option value="sports-accessories">SPORTS</option>
+                        <option value="sunglasses">SUNGLASSES</option>
+                        <option value="tablets">TABLETS</option>
+                        <option value="womens-dresses">DRESSES</option>
+                        <option value="womens-watches">WOMEN WATCHES</option>
                     </select>
                 </div>
             </div>
-            <div className="product-grid">
-                {currentProducts.map((item, i) => (
-                    <div className="product-card" key={i}>
-                        <div className="product-image">
-                            <img src={item.thumbnail} alt={item.title} />
-                        </div>
-                        <h1 className="product-title">{item.title}</h1>
-                        <div className="product-meta">
-                            {item.brand &&
-                                <p className="product-brand">{item.brand}</p>}
-                            <p className="product-category">{item.category.toUpperCase()}</p>
-                        </div>
-                        <p className={`product-stock ${item.stock > 0 ? "in-stock" : "out-of-stock"}`}>
-                            {item.stock > 0 ? "In Stock" : "Out of Stock"}
-                        </p>
-                        <h2 className="product-price">${item.price}</h2>
-                    </div>
-                ))}
-            </div>
 
+            {/* Prodcuts section */}
+            <>
+                <div className="product-grid">
+                    {currentProducts.map((item, i) => (
+                        <div className="product-card" key={i}>
+                            <div className="product-image">
+                                <img src={item.thumbnail} alt={item.title} />
+                            </div>
+                            <h1 className="product-title">{item.title}</h1>
+                            <div className="product-meta">
+                                {item.brand &&
+                                    <p className="product-brand">{item.brand}</p>}
+                                <p className="product-category">{item.category.toUpperCase()}</p>
+                            </div>
+                            <p className={`product-stock ${item.stock > 0 ? "in-stock" : "out-of-stock"}`}>
+                                {item.stock > 0 ? "In Stock" : "Out of Stock"}
+                            </p>
+                            <h2 className="product-price">${item.price}</h2>
+                        </div>
+                    ))}
+                </div>
+            </>
+
+            {/* Pagination */}
             <div className="pageniated-wrapper">
                 <button onClick={handlePrev} disabled={currentPage === 1}>Prev</button>
                 {PageArr.map((page) => (
