@@ -14,7 +14,9 @@ const ProductNavbar = () => {
                     <Link to="/" className="nav-li">
                         <li>Home</li>
                     </Link>
-                    <li>Shop</li>
+                    <Link to="/" className="nav-li">
+                        <li>Product</li>
+                    </Link>
                     <li>Categories</li>
                     <li>About</li>
                     <li>Contact</li>

@@ -17,7 +17,8 @@ export const ProductDetails = () => {
                 const res = await fetch(`https://dummyjson.com/products/${id}`);
                 const json = await res.json();
                 setProduct(json);
-                setMainImage(json.thumbnail || json.images[0]);
+                // setMainImage(json.thumbnail || json.images[0]);
+                setMainImage(json.images.includes(json.thumbnail) ? json.thumbnail : json.images[0]);
             } catch (err) {
                 setError("Something Went Wrong Failed to fetch products.");
             }

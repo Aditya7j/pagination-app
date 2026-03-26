@@ -22,8 +22,8 @@
 
             img {
                 max-width: 100%;
-                max-height: 400px;
-                object-fit: contain;
+                height: 400px;
+                object-fit: cover;
             }
         }
 
@@ -41,7 +41,7 @@
                 padding: 10px;
 
                 &.active {
-                    background-color: #b7c8ec;
+                    background-color: #cad2e3;
                 }
             }
         }

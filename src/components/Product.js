@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Shimmer } from "./Shimmer";
 import "../scss/product.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { img_url } from "../constant/url";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
-
 
 export const Products = () => {
     const [product, setProducts] = useState([]);
@@ -53,18 +52,21 @@ export const Products = () => {
     // handle page change
     const handlePageChange = (page) => {
         setcurrentPage(page)
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     // Add Next & Prev Function
     const handleNext = () => {
         if (currentPage < totalPage) {
             setcurrentPage(prev => prev + 1)
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
     }
 
     const handlePrev = () => {
         if (currentPage > 1) {
             setcurrentPage(prev => prev - 1)
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
     }
 
@@ -73,19 +75,20 @@ export const Products = () => {
     }, [search, filter, categoryFilter]);
 
     useEffect(() => {
+        async function getProducts() {
+            try {
+                const data = await fetch("https://dummyjson.com/products?limit=200");
+                const json = await data.json();
+                setProducts(json.products);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } catch (err) {
+                setError("Something Went Wrong Failed to fetch products.");
+                console.error(err);
+            }
+        }
         getProducts();
     }, []);
 
-    async function getProducts() {
-        try {
-            const data = await fetch("https://dummyjson.com/products?limit=200");
-            const json = await data.json();
-            setProducts(json.products);
-        } catch (err) {
-            setError("Something Went Wrong Failed to fetch products.");
-            console.error(err);
-        }
-    }
 
     if (error) return <p className="error-message">{error}</p>;
     if (!product.length) return <Shimmer count={12} />;
@@ -149,7 +152,7 @@ export const Products = () => {
 
             {/* Prodcuts section */}
             <>
-                <div className="product-grid">
+                <div className="product-grid" >
                     {currentProducts.map((item, i) => (
                         <div className="product-card" key={i} onClick={() => navigate(`/product/${item.id}`)}>
                             <div className="product-image">
