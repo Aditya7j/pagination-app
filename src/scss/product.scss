@@ -10,12 +10,18 @@ $card-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 $card-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.1);
 $image-bg: #fefefe;
 
+
 // Global Reset
 * {
   font-family: $font-main;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+// Smooth scrolling feel
+html {
+  scroll-behavior: smooth;
 }
 
 // Navbar
@@ -27,8 +33,9 @@ $image-bg: #fefefe;
   align-items: center;
   justify-content: space-between;
   padding: 18px 25px;
-  background-color: #fff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
   flex-wrap: wrap;
   gap: 30px;
 
@@ -37,7 +44,7 @@ $image-bg: #fefefe;
       width: 60px;
       height: 60px;
       object-fit: cover;
-      border-radius: 7px;
+      border-radius: 10px;
     }
   }
 
@@ -48,15 +55,17 @@ $image-bg: #fefefe;
     .search-input {
       width: 100%;
       padding: 12px 16px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+      border-radius: 10px;
+      border: 1px solid #e2e2e2;
       font-size: 0.95rem;
-      transition: border 0.3s, box-shadow 0.3s;
+      background: #fafafa;
+      transition: all 0.25s ease;
 
       &:focus {
         outline: none;
-        border-color: #ff4d4f;
-        box-shadow: 0 0 5px rgba(255, 77, 79, 0.4);
+        border-color: $primary-color;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.12);
       }
     }
   }
@@ -68,32 +77,34 @@ $image-bg: #fefefe;
 
     .filter-label {
       font-size: 0.9rem;
-      color: #333;
+      color: #444;
       font-weight: 500;
     }
 
     .filter-select {
       appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
       height: 42px;
       padding: 0 40px 0 14px;
       border-radius: 12px;
-      border: 1px solid #ccc;
+      border: 1px solid #e2e2e2;
       font-size: 0.95rem;
       line-height: 42px;
-      background-color: #fff;
+      background-color: #fafafa;
       background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12'><polygon points='0,0 12,0 6,6' fill='%23666'/></svg>");
       background-repeat: no-repeat;
       background-position: right 14px center;
-      background-size: 12px 12px;
       cursor: pointer;
-      transition: border 0.3s, box-shadow 0.3s;
+      transition: all 0.25s ease;
+
+      &:hover {
+        border-color: #bbb;
+      }
 
       &:focus {
         outline: none;
-        border-color: #ff4d4f;
-        box-shadow: 0 0 5px rgba(255, 77, 79, 0.4);
+        border-color: $primary-color;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.12);
       }
     }
   }
@@ -105,20 +116,38 @@ $image-bg: #fefefe;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 22px;
   padding: 25px;
-  background-color: $background-light;
+  background: linear-gradient(to bottom, #f8f9fa, #f1f3f5);
 
   .product-card {
     background: #fff;
     border-radius: $card-radius;
     box-shadow: $card-shadow;
     overflow: hidden;
-    text-align: left;
     padding: $card-padding;
     cursor: pointer;
-    transition: box-shadow 0.3s;
+    position: relative;
+    transition: box-shadow 0.3s ease, border 0.3s ease;
+    border: 1px solid transparent;
 
     &:hover {
       box-shadow: $card-shadow-hover;
+      border-color: #f0d4d4;
+    }
+
+    // subtle top highlight
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    &:hover::before {
+      opacity: 1;
     }
 
     .product-image {
@@ -128,14 +157,34 @@ $image-bg: #fefefe;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      background: $image-bg;
+      background: linear-gradient(145deg, #ffffff, #f4f4f4);
       border-radius: 12px;
       margin-bottom: 14px;
+      position: relative;
 
       img {
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
+      }
+
+      // shimmer effect
+      &::after {
+        content: "";
+        position: absolute;
+        width: 120%;
+        height: 100%;
+        background: linear-gradient(110deg,
+            transparent 25%,
+            rgba(255, 255, 255, 0.5) 50%,
+            transparent 75%);
+        top: 0;
+        left: -120%;
+        transition: left 0.6s ease;
+      }
+
+      &:hover::after {
+        left: 120%;
       }
     }
 
@@ -159,6 +208,7 @@ $image-bg: #fefefe;
         font-weight: 500;
         text-transform: uppercase;
         color: #555;
+        letter-spacing: 0.4px;
       }
     }
 
@@ -177,9 +227,10 @@ $image-bg: #fefefe;
     }
 
     .product-price {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: $primary-color;
+      letter-spacing: 0.3px;
     }
   }
 
@@ -191,28 +242,29 @@ $image-bg: #fefefe;
   }
 }
 
-// paginated-css
+// Pagination
 .pageniated-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  margin: 24px 0;
+  gap: 10px;
+  margin: 28px 0;
 
   button {
-    padding: 8px 14px;
-    border-radius: 8px;
-    border: 1px solid #dcdcdc;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: 1px solid #e2e2e2;
     background: #fff;
     font-size: 14px;
     font-weight: 500;
     color: #333;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 
     &:hover:not(:disabled) {
-      border-color: #000;
-      color: #000;
+      border-color: $primary-color;
+      color: $primary-color;
+      background: #fff5f5;
     }
 
     &:disabled {
@@ -222,10 +274,10 @@ $image-bg: #fefefe;
   }
 
   .page-no-wrapper {
-    min-width: 36px;
-    height: 36px;
-    padding: 0 10px;
-    border-radius: 10px;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 12px;
+    border-radius: 12px;
     border: 1px solid #e5e5e5;
     background: #fff;
     display: flex;
@@ -235,17 +287,19 @@ $image-bg: #fefefe;
     font-weight: 500;
     color: #444;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 
     &:hover {
-      border-color: #e67e7e;
-      color: #000;
+      border-color: $primary-color;
+      color: $primary-color;
+      background: #fff5f5;
     }
 
     &.active {
-      background: #e67e7e;
+      background: linear-gradient(135deg, #ff4d4f, #ff7875);
       color: #fff;
-      border-color: #e67e7e;
+      border-color: transparent;
+      box-shadow: 0 4px 10px rgba(255, 77, 79, 0.3);
     }
   }
 }

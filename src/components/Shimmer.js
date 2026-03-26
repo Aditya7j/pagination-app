@@ -1,5 +1,5 @@
 // Shimmer.jsx
-import "./shimmer.scss";
+import "../scss/shimmer.scss";
 
 export const Shimmer = ({ count = 8 }) => {
     return (

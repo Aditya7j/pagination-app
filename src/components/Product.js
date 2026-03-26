@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import "./product.scss";
 import { Shimmer } from "./Shimmer";
+import "../scss/product.scss";
 
 export const Products = () => {
     const [product, setProducts] = useState([]);
