@@ -19,7 +19,7 @@ export const ProductDetails = () => {
                 setProduct(json);
                 setMainImage(json.thumbnail || json.images[0]);
             } catch (err) {
-                setError("Failed to load product.");
+                setError("Something Went Wrong Failed to fetch products.");
             }
         }
         fetchProduct();

@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import { img_url } from "../constant/url";
 import "../scss/productNavbar.scss";
-import { FaShoppingCart, FaSearch, FaUser } from "react-icons/fa";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 
 const ProductNavbar = () => {
     return (
         <nav className="product-navbar">
             <div className="navbar-left">
-                <img className="logo" src={img_url} alt="err" />
+                <Link to="/">
+                    <img className="logo" src={img_url} alt="err" />
+                </Link>
                 <ul className="nav-links">
                     <Link to="/" className="nav-li">
                         <li>Home</li>

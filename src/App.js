@@ -2,6 +2,7 @@ import { Products } from "./components/Product";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProductDetails } from "./components/ProductDetails";
 import { Footer } from "./components/Footer";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Products />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

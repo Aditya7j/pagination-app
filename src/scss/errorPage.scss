@@ -1,0 +1,41 @@
+.error-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+
+    h1 {
+        font-size: 6rem;
+        color: #ff4d4f;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
+    .back-home-btn {
+        padding: 10px 25px;
+        background-color: #ff4d4f;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: darken(#ff4d4f, 10%);
+        }
+    }
+}

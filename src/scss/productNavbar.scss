@@ -1,4 +1,7 @@
 .product-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000; // stays above other elements
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -116,4 +119,9 @@
             }
         }
     }
+}
+
+// Add this to the main content wrapper
+.main-content {
+    padding-top: 84px; // adjust to navbar height + padding
 }

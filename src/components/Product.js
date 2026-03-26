@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Shimmer } from "./Shimmer";
 import "../scss/product.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { img_url } from "../constant/url";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
+
 
 export const Products = () => {
     const [product, setProducts] = useState([]);
@@ -91,9 +93,11 @@ export const Products = () => {
     return (
         <>
             <div className="navbar-wrapper">
-                <div className="logo-wrapper">
-                    <img src={img_url} alt="err" />
-                </div>
+                <Link to="/">
+                    <div className="logo-wrapper">
+                        <img src={img_url} alt="err" />
+                    </div>
+                </Link>
                 <div className="search-container">
                     <input type="text" placeholder="Search Product" className="search-input"
                         value={search}
@@ -136,6 +140,10 @@ export const Products = () => {
                         <option value="womens-dresses">DRESSES</option>
                         <option value="womens-watches">WOMEN WATCHES</option>
                     </select>
+                </div>
+                <div className="nav-icons">
+                    <FaUser className="icon" />
+                    <FaShoppingCart className="icon" />
                 </div>
             </div>
 
