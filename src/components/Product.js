@@ -6,12 +6,23 @@ export const Products = () => {
     const [error, setError] = useState("");
     const [currentPage, setcurrentPage] = useState(1);
     const itemPerPage = 20;
+    const [search, setSearch] = useState("");
+
+    // Filter products 
+    const filteredProducts = product.filter((item) => {
+        const value = search.toLowerCase();
+        return (
+            item.title.toLowerCase().includes(value) ||
+            item.brand?.toLowerCase().includes(value) ||
+            item.category.toLowerCase().includes(value)
+        )
+    });
 
     //compute paginated data
-    const totalPage = Math.ceil(product.length / itemPerPage);
+    const totalPage = Math.ceil(filteredProducts.length / itemPerPage);
     const startIndex = (currentPage - 1) * itemPerPage;
     const endIndex = startIndex + itemPerPage;
-    const currentProducts = product.slice(startIndex, endIndex);
+    const currentProducts = filteredProducts.slice(startIndex, endIndex);
 
     // genrate dynamic page Number
     const PageArr = Array.from({ length: totalPage }, (_, i) => i + 1);
@@ -36,7 +47,8 @@ export const Products = () => {
 
     useEffect(() => {
         getProducts();
-    }, []);
+        setcurrentPage(1)
+    }, [search]);
 
     async function getProducts() {
         try {
@@ -58,7 +70,10 @@ export const Products = () => {
                     <img src="https://img.freepik.com/premium-vector/natural-products-logo_1222-726.jpg" alt="err" />
                 </div>
                 <div className="search-container">
-                    <input type="text" placeholder="Search Product" className="search-input" />
+                    <input type="text" placeholder="Search Product" className="search-input"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
                 </div>
                 <div className="filter-container">
                     <label htmlFor="filter" className="filter-label">Filter:</label>
