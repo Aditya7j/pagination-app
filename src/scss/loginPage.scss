@@ -1,0 +1,115 @@
+$primary-gradient: linear-gradient(135deg, #41ff61, #bcff2b, #ff9966, #ff5e62);
+$input-bg: #f5f5f5;
+$input-border: #ddd;
+$btn-color: #fff;
+$btn-bg: #ff5e62;
+$btn-hover: #ff3a3f;
+$text-color: #333;
+$card-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+$border-radius: 12px;
+
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $primary-gradient;
+    background-size: 400% 400%;
+    animation: gradientBG 20s ease infinite;
+    font-family: 'Poppins', sans-serif;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.auth-card {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: $border-radius;
+    box-shadow: $card-shadow;
+    width: 360px;
+    text-align: center;
+
+    h2 {
+        margin-bottom: 25px;
+        color: $text-color;
+        font-family: 'ASAP', sans-serif;
+        font-weight: 700;
+    }
+
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+
+        input {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid $input-border;
+            background: $input-bg;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.2s ease;
+
+            &:focus {
+                border-color: $btn-bg;
+            }
+        }
+
+        .auth-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: $btn-bg;
+            color: $btn-color;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+
+            &:hover {
+                background: $btn-hover;
+            }
+        }
+    }
+
+    .auth-message {
+        margin-top: 15px;
+        font-weight: 500;
+        font-size: 14px;
+
+        &.success {
+            color: #28a745;
+        }
+
+        &.error {
+            color: #dc3545;
+        }
+    }
+
+    .switch-text {
+        margin-top: 15px;
+        font-size: 14px;
+        color: $text-color;
+
+        a {
+            color: $btn-bg;
+            font-weight: 500;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

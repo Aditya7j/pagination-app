@@ -1,9 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { img_url } from "../constant/url";
 import "../scss/productNavbar.scss";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { FaShoppingCart, FaSignOutAlt, FaUser } from "react-icons/fa";
 
 const ProductNavbar = () => {
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("currentUser");
+        navigate("/login"); // redirect to login page
+    };
+
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     return (
         <nav className="product-navbar">
             <div className="navbar-left">
@@ -26,8 +35,24 @@ const ProductNavbar = () => {
             <div className="navbar-right">
 
                 <div className="nav-icons">
-                    <FaUser className="icon" />
+                    {currentUser ? (
+                        <>
+                            <p className="name-text">{currentUser.name}</p>
+
+                            <FaSignOutAlt
+                                className="icon logout-icon"
+                                onClick={handleLogout}
+                                title="Logout"
+                            />
+                        </>
+
+                    ) : (
+                        <Link to="/login">
+                            <FaUser className="icon" />
+                        </Link>
+                    )}
                     <FaShoppingCart className="icon" />
+                    {currentUser ? "" : ""}
                 </div>
             </div>
         </nav>

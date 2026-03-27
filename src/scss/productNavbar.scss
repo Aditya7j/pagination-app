@@ -76,6 +76,24 @@
         .nav-icons {
             display: flex;
             gap: 15px;
+            align-items: center;
+
+            .name-text {
+                font-size: .9rem;
+                font-weight: 800;
+                color: #ff4d4f;
+            }
+
+            .logout-icon {
+                margin-left: 8px;
+                cursor: pointer;
+                color: #ff5e62;
+                transition: color 0.2s;
+
+                &:hover {
+                    color: #ff3a3f;
+                }
+            }
 
             .icon {
                 font-size: 1.2rem;

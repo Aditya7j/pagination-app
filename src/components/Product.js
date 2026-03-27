@@ -3,7 +3,7 @@ import { Shimmer } from "./Shimmer";
 import "../scss/product.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { img_url, product_url } from "../constant/url";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { FaShoppingCart, FaSignOutAlt, FaUser } from "react-icons/fa";
 
 const Products = () => {
     const [product, setProducts] = useState([]);
@@ -14,6 +14,8 @@ const Products = () => {
     const [filter, setFilter] = useState("");
     const [categoryFilter, setCategoryFilter] = useState("");
     const navigate = useNavigate();
+
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
     // Filter products 
     let filteredProducts = product.filter((item) => {
@@ -28,15 +30,18 @@ const Products = () => {
     // filter-products
     if (filter === "price-high") {
         filteredProducts = [...filteredProducts].sort((a, b) => b.price - a.price);
+        window.scrollTo({ top: 0, behavior: "smooth" })
     }
     if (filter === "price-low") {
         filteredProducts = [...filteredProducts].sort((a, b) => a.price - b.price);
+        window.scrollTo({ top: 0, behavior: "smooth" })
     }
 
     if (categoryFilter) {
         filteredProducts = filteredProducts.filter(
             (item) => item.category.includes(categoryFilter)
         );
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
 
@@ -89,6 +94,12 @@ const Products = () => {
         getProducts();
     }, []);
 
+    // handleLogout 
+
+    const handleLogout = () => {
+        localStorage.removeItem("currentUser");
+        navigate("/login");
+    }
 
     if (error) return <p className="error-message">{error}</p>;
     if (!product.length) return <Shimmer count={12} />;
@@ -145,7 +156,18 @@ const Products = () => {
                     </select>
                 </div>
                 <div className="nav-icons">
-                    <FaUser className="icon" />
+                    {currentUser ?
+                        <>
+                            <p className="name-text">{currentUser.name}</p>
+                            <FaSignOutAlt
+                                className="icon logout-icon"
+                                onClick={handleLogout}
+                                title="Logout"
+                            />
+
+                        </>
+                        :
+                        <FaUser className="icon" />}
                     <FaShoppingCart className="icon" />
                 </div>
             </div>

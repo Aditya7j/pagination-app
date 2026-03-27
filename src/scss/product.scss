@@ -360,8 +360,8 @@ html {
     }
 
     .nav-icons {
-      justify-content: flex-end;
       gap: 20px;
+      align-items: center;
     }
   }
 
@@ -421,6 +421,29 @@ html {
       .product-price {
         font-size: 1rem;
       }
+    }
+  }
+}
+
+.nav-icons {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+
+  .name-text {
+    font-size: .9rem;
+    font-weight: 800;
+    color: #ff4d4f;
+  }
+
+  .logout-icon {
+    margin-left: 8px;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #ff3a3f;
     }
   }
 }
