@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { img_url } from "../constant/url";
 import "../scss/productNavbar.scss";
-import { FaShoppingCart, FaSignOutAlt, FaUser } from "react-icons/fa";
+import { FaSignOutAlt, FaUser } from "react-icons/fa";
 
 const ProductNavbar = () => {
 
@@ -51,7 +51,6 @@ const ProductNavbar = () => {
                             <FaUser className="icon" />
                         </Link>
                     )}
-                    <FaShoppingCart className="icon" />
                     {currentUser ? "" : ""}
                 </div>
             </div>

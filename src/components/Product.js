@@ -3,7 +3,7 @@ import { Shimmer } from "./Shimmer";
 import "../scss/product.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { img_url, product_url } from "../constant/url";
-import { FaShoppingCart, FaSignOutAlt, FaUser } from "react-icons/fa";
+import {FaSignOutAlt, FaUser } from "react-icons/fa";
 
 const Products = () => {
     const [product, setProducts] = useState([]);
@@ -168,7 +168,6 @@ const Products = () => {
                         </>
                         :
                         <FaUser className="icon" />}
-                    <FaShoppingCart className="icon" />
                 </div>
             </div>
 
