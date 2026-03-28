@@ -33,20 +33,28 @@ export const Homepage = () => {
     useEffect(() => {
         if (!products.length) return;
 
-        // Set initial featured products immediately
+        let currentIndex = 0;
+
+        // initial load
         setFeaturedProducts(products.slice(0, sliceSize));
-        setSliceIndex(sliceSize);
 
-        // Auto-rotate every 5s
         const interval = setInterval(() => {
-            setFeaturedProducts((prev) => {
-                const start = sliceIndex;
-                const end = start + sliceSize;
-                const newSlice = products.slice(start, end);
-                return newSlice;
-            });
+            currentIndex = (currentIndex + sliceSize) % products.length;
 
-            setSliceIndex((prev) => (prev + sliceSize) % products.length);
+            const end = currentIndex + sliceSize;
+
+            // handle wrap-around
+            let newSlice;
+            if (end <= products.length) {
+                newSlice = products.slice(currentIndex, end);
+            } else {
+                newSlice = [
+                    ...products.slice(currentIndex),
+                    ...products.slice(0, end - products.length)
+                ];
+            }
+
+            setFeaturedProducts(newSlice);
         }, 5000);
 
         return () => clearInterval(interval);
